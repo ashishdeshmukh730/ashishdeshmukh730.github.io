@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashish Deshmukh — Product Owner & Business Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0F1F2E;
+    --navy2:  #162636;
+    --gold:   #C9A84C;
+    --gold2:  #E8C97A;
+    --white:  #F5F3EF;
+    --muted:  #8A9BAD;
+    --card:   #1A2D40;
+    --border: rgba(201,168,76,0.18);
+    --radius: 4px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  section { padding: 5rem 0; }
+  section + section { border-top: 1px solid var(--border); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(15,31,46,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-inner {
+    padding: 8rem 0 4rem;
+    position: relative; z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block; width: 28px; height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.35s forwards;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 0.65rem;
+    margin-bottom: 2.8rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.65s forwards;
+  }
+
+  .badge {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    background: rgba(201,168,76,0.05);
+    white-space: nowrap;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.8s forwards;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    border: 1px solid var(--gold);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold2);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.25);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(245,243,239,0.2);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-1px);
+  }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: var(--border);
+    max-width: 60px;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+
+  .section-intro {
+    color: var(--muted);
+    max-width: 580px;
+    margin-bottom: 3rem;
+    font-size: 0.95rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .about-text p strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: var(--gold); }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── COMPETENCIES ── */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.7rem;
+  }
+
+  .comp-item {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.8rem 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 400;
+    transition: all 0.2s;
+  }
+
+  .comp-item:hover {
+    border-color: var(--gold);
+    color: var(--white);
+    background: rgba(201,168,76,0.07);
+  }
+
+  .comp-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .timeline-item {
+    padding-left: 2rem;
+    margin-bottom: 2.8rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--navy);
+  }
+
+  .timeline-header { margin-bottom: 0.5rem; }
+
+  .timeline-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--white);
+    margin-bottom: 0.1rem;
+  }
+
+  .timeline-org {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+
+  .timeline-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+    letter-spacing: 0.04em;
+  }
+
+  .timeline-bullets {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+
+  .timeline-bullets li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .timeline-bullets li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-size: 0.7rem;
+    top: 3px;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-grid {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.6rem;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .edu-card:hover { border-color: var(--gold); }
+
+  .edu-degree {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+  }
+
+  .edu-school {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .edu-dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--gold);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── MITACS HIGHLIGHT ── */
+  .mitacs-card {
+    background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: var(--radius);
+    padding: 2.2rem 2.4rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .mitacs-icon {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.8rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .mitacs-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .mitacs-amount {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+
+  .mitacs-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .skill-group {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: border-color 0.2s;
+  }
+
+  .skill-group:hover { border-color: var(--gold); }
+
+  .skill-group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+
+  .skill-tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: rgba(245,243,239,0.05);
+    padding: 0.25rem 0.55rem;
+    border-radius: 2px;
+    border: 1px solid rgba(245,243,239,0.08);
+  }
+
+  /* ── CONTACT ── */
+  #contact { text-align: center; }
+
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 3rem;
+    max-width: 560px;
+    margin: 2rem auto 0;
+  }
+
+  .contact-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    display: flex; flex-direction: column; gap: 0.7rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--gold); }
+
+  .contact-link-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .pgwp-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  footer p {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .stat-grid  { grid-template-columns: 1fr 1fr; }
+    .mitacs-card { grid-template-columns: 1fr; gap: 1rem; }
+    nav .nav-links { display: none; }
+    .edu-card { flex-direction: column; }
+    h1 { font-size: 2.8rem; }
+    .contact-card { padding: 2rem 1.5rem; }
+    section { padding: 3.5rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Ashish Deshmukh</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-tag">Moncton, NB &nbsp;·&nbsp; Open to Opportunities</div>
+      <h1>Product Owner<br><em>&amp; Business</em><br>Analyst</h1>
+      <p class="hero-sub">
+        5+ years delivering Agile product strategy, backlog ownership, and data-driven insights
+        for enterprise clients including <strong style="color:var(--white)">Aetna</strong> and
+        <strong style="color:var(--white)">Humana</strong>. MITACS grant recipient.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">Agile &amp; Scrum</span>
+        <span class="badge">Backlog Management</span>
+        <span class="badge">Stakeholder Engagement</span>
+        <span class="badge">JIRA</span>
+        <span class="badge">SAFe Principles</span>
+        <span class="badge">SQL · Tableau</span>
+        <span class="badge">Data Governance</span>
+        <span class="badge">PGWP — Work Authorized</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        <a href="#experience" class="btn btn-outline">View Experience</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About</div>
+    <h2>Strategy Meets Delivery</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Product Owner and Business Analyst</strong> with a track record of
+          translating complex business requirements into prioritized backlogs, actionable user
+          stories, and high-quality delivered solutions — across healthcare, SaaS, and
+          manufacturing enterprises.
+        </p>
+        <p>
+          My work at <strong>Cotiviti</strong> put me directly in the seat of serving
+          <strong>Aetna and Humana</strong> — two of North America's largest health insurers —
+          where I managed requirements, performed root cause analysis, and drove continuous
+          improvement across regulated data environments.
+        </p>
+        <p>
+          I bring both the <strong>analytical depth</strong> of a seasoned BI professional
+          and the <strong>stakeholder fluency</strong> of a practising Product Owner — a
+          combination that lets me bridge technical teams and business leadership effectively.
+        </p>
+        <p>
+          Based in Moncton, NB. Fully authorized to work in Canada on a
+          <strong>Post-Graduate Work Permit (PGWP)</strong>.
+        </p>
+      </div>
+      <div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Years PO &amp; BA Experience</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">300+</div>
+            <div class="stat-label">Retail Clients Served</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$45K</div>
+            <div class="stat-label">MITACS Grant Awarded</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Industries Delivered In</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCIES -->
+<section id="competencies">
+  <div class="container">
+    <div class="section-label">Core Competencies</div>
+    <h2>What I Bring to a Team</h2>
+    <p class="section-intro">Every competency below maps directly to enterprise delivery — not just theory.</p>
+    <div class="comp-grid">
+      <div class="comp-item"><span class="comp-dot"></span>Agile Product Ownership</div>
+      <div class="comp-item"><span class="comp-dot"></span>Backlog Management &amp; Prioritization</div>
+      <div class="comp-item"><span class="comp-dot"></span>User Stories &amp; Acceptance Criteria</div>
+      <div class="comp-item"><span class="comp-dot"></span>Sprint &amp; PI Planning</div>
+      <div class="comp-item"><span class="comp-dot"></span>Stakeholder Engagement</div>
+      <div class="comp-item"><span class="comp-dot"></span>SAFe Principles</div>
+      <div class="comp-item"><span class="comp-dot"></span>Risk Management (ROAM)</div>
+      <div class="comp-item"><span class="comp-dot"></span>Performance Monitoring</div>
+      <div class="comp-item"><span class="comp-dot"></span>Root Cause Analysis</div>
+      <div class="comp-item"><span class="comp-dot"></span>Post-Implementation Review</div>
+      <div class="comp-item"><span class="comp-dot"></span>Continuous Improvement</div>
+      <div class="comp-item"><span class="comp-dot"></span>Data Governance &amp; Compliance</div>
+      <div class="comp-item"><span class="comp-dot"></span>Cross-Functional Collaboration</div>
+      <div class="comp-item"><span class="comp-dot"></span>DevOps Delivery Practices</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2>Career Timeline</h2>
+    <p class="section-intro">Reverse chronological — most recent first.</p>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <div class="timeline-title">Graduate Research Assistant</div>
+          <div class="timeline-org">Crandall University</div>
+          <div class="timeline-meta">Sep 2025 – Jan 2026 &nbsp;·&nbsp; Moncton, NB</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>Functioned as product owner for a public-sector BI dashboard initiative — gathered stakeholder requirements, defined acceptance criteria, and iteratively delivered Tableau dashboards and SQL pipelines supporting institutional performance monitoring.</li>
+          <li>Applied descriptive analytics and root cause analysis to generate actionable insights; ensured outputs met data governance and compliance standards.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <div class="timeline-title">Product Owner</div>
+          <div class="timeline-org">Bottlecapps</div>
+          <div class="timeline-meta">Nov 2023 – Apr 2024 &nbsp;·&nbsp; Remote — USA</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>Owned end-to-end product backlog for a SaaS platform serving 300+ retail clients; authored user stories with acceptance criteria and led Agile ceremonies — sprint planning, refinement, reviews, retrospectives — using JIRA and Trello.</li>
+          <li>Translated stakeholder feedback into a structured product roadmap; validated delivery at sprint closure and drove continuous improvement cycles to enhance platform stability.</li>
+          <li>Served as primary point of contact for requirements clarification, managing expectations across engineering, sales, and client success.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <div class="timeline-title">Business Intelligence Analyst</div>
+          <div class="timeline-org">Cotiviti India — Serving Aetna &amp; Humana, USA</div>
+          <div class="timeline-meta">Jul 2021 – Nov 2023 &nbsp;·&nbsp; India (Remote for US enterprise clients)</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>Primary BA and delivery owner for Aetna and Humana — elicited, documented, and validated business requirements within an Agile JIRA-tracked framework; performed root cause analysis on healthcare datasets to support post-implementation review.</li>
+          <li>Developed SQL, Tableau, and SPSS analytical models for healthcare performance monitoring and risk reporting; maintained data governance and security compliance across regulated datasets.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <div class="timeline-title">Deputy Manager, Business Analytics</div>
+          <div class="timeline-org">Kirloskar Oil Engines Ltd.</div>
+          <div class="timeline-meta">Apr 2020 – Jun 2021 &nbsp;·&nbsp; India</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>Functioned as backlog owner across multiple analytics workstreams — prioritized reporting requirements with senior stakeholders using JIRA and coordinated cross-functional delivery across manufacturing, finance, and supply chain.</li>
+          <li>Led continuous improvement in reporting processes, reducing dashboard turnaround time through standardized data governance practices.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <div class="timeline-title">Product Executive</div>
+          <div class="timeline-org">Transasia Bio-Medicals Ltd.</div>
+          <div class="timeline-meta">Nov 2015 – Dec 2017 &nbsp;·&nbsp; India</div>
+        </div>
+        <ul class="timeline-bullets">
+          <li>Gathered and validated business requirements from cross-functional stakeholders; maintained Excel-based performance tracking tools supporting operational decision-making across sales and product distribution.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Education &amp; Recognition</div>
+    <h2>Academic Background</h2>
+
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div>
+          <div class="edu-degree">Master of Management</div>
+          <div class="edu-school">Crandall University, Moncton, NB</div>
+        </div>
+        <div class="edu-dates">May 2024 – Dec 2025</div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-degree">Post Graduate Diploma, Business Analysis</div>
+          <div class="edu-school">Kirloskar Institute of Management, Pune, India</div>
+        </div>
+        <div class="edu-dates">Apr 2018 – Mar 2020</div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-degree">Bachelor of Technology</div>
+          <div class="edu-school">D Y Patil University, Mumbai, India</div>
+        </div>
+        <div class="edu-dates">Jun 2011 – Mar 2014</div>
+      </div>
+    </div>
+
+    <div class="mitacs-card">
+      <div class="mitacs-icon">★</div>
+      <div>
+        <div class="mitacs-title">MITACS Accelerate Entrepreneur Grant</div>
+        <div class="mitacs-amount">$45,000 CAD &nbsp;·&nbsp; May 2026 – April 2027</div>
+        <div class="mitacs-desc">
+          Nationally competitive grant awarded by MITACS Canada for applied research and
+          technology innovation. Recognized among a highly selective cohort of Canadian
+          graduate entrepreneurs. Home-based commitment; no conflict with full-time employment.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Technical Skills</div>
+    <h2>Tools &amp; Methodologies</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-label">Delivery Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">JIRA</span>
+          <span class="skill-tag">Trello</span>
+          <span class="skill-tag">Slack</span>
+          <span class="skill-tag">Azure DevOps</span>
+          <span class="skill-tag">Confluence</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Analytics &amp; BI</div>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">Excel (Advanced)</span>
+          <span class="skill-tag">SPSS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Methodologies</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Agile / Scrum</span>
+          <span class="skill-tag">SAFe Principles</span>
+          <span class="skill-tag">Kanban</span>
+          <span class="skill-tag">DevOps</span>
+          <span class="skill-tag">PI Planning</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Platforms &amp; Governance</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Enterprise SaaS</span>
+          <span class="skill-tag">User Role Management</span>
+          <span class="skill-tag">Data Governance</span>
+          <span class="skill-tag">Compliance Frameworks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2>Let's Connect</h2>
+    <div class="contact-card">
+      <p>
+        Open to Product Owner and Business Analyst opportunities in New Brunswick and across Canada.
+        Available for full-time roles. Response within 24 hours.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:ashish.moncton@gmail.com" class="contact-link">
+          <span class="contact-link-icon">@</span>
+          ashish.moncton@gmail.com
+        </a>
+        <a href="tel:+15068992769" class="contact-link">
+          <span class="contact-link-icon">☎</span>
+          +1 (506) 899-2769
+        </a>
+        <a href="https://linkedin.com/in/[YOUR-LINKEDIN-HANDLE]" target="_blank" class="contact-link">
+          <span class="contact-link-icon">in</span>
+          linkedin.com/in/[YOUR-LINKEDIN-HANDLE]
+        </a>
+      </div>
+      <div class="pgwp-note">
+        ✦ &nbsp; Authorized to work in Canada — Post-Graduate Work Permit (PGWP) &nbsp; ✦ &nbsp; English: Written &amp; Spoken — Proficient
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;width:100%">
+    <p>© 2026 Ashish Deshmukh</p>
+    <p>Moncton, NB &nbsp;·&nbsp; Canada</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-in for timeline items
+  const items = document.querySelectorAll('.timeline-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  items.forEach(item => observer.observe(item));
+</script>
+
+</body>
+</html>
