@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashish Deshmukh — Product Owner & Business Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--text:#111827;--muted:#6B7280;--light:#9CA3AF;
+  --teal:#1B6CA8;--teal-dark:#145487;--teal-light:#EBF4FB;
+  --teal-border:rgba(27,108,168,0.14);
+  --border:#E5E7EB;--border-dark:#D1D5DB;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* ── NAV ─────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(250,250,248,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border)}
+.nav-name{font-family:var(--serif);font-size:.95rem;font-weight:700;
+  color:var(--text);text-decoration:none;letter-spacing:-.01em}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--teal)}
+
+/* ── LAYOUT ──────────────────────────────────── */
+.wrap{max-width:800px;margin:0 auto;padding:0 2.5rem}
+
+/* ── ① TOP OF PYRAMID — HERO ─────────────────── */
+#hero{
+  padding:9.5rem 0 5rem;
+  border-bottom:3px solid var(--text);
+  position:relative;overflow:hidden;
+}
+/* Subtle ruled-paper lines */
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(
+    0deg,transparent,transparent 47px,
+    var(--border) 47px,var(--border) 48px);
+  opacity:.25;pointer-events:none;
+}
+
+/* Badge */
+.badge{
+  display:inline-block;
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.1em;
+  color:var(--teal);background:var(--teal-light);
+  border:1px solid var(--teal-border);
+  padding:.28rem .85rem;margin-bottom:2rem;
+  opacity:0;animation:up .4s ease .1s forwards;
+}
+.badge::before{content:'● ';font-size:.48rem;
+  animation:blink 2s ease infinite;display:inline}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* Main headline */
+.h1{
+  font-family:var(--serif);
+  font-size:clamp(2.6rem,6vw,4.6rem);
+  font-weight:800;line-height:1.05;letter-spacing:-.03em;
+  color:var(--text);margin-bottom:1.4rem;
+  max-width:700px;
+  opacity:0;animation:up .7s ease .22s forwards;
+}
+.h1 .teal{color:var(--teal)}
+
+/* Sub — ONE sentence */
+.sub{
+  font-size:1.05rem;color:var(--muted);line-height:1.7;
+  max-width:520px;margin-bottom:2.8rem;font-weight:300;
+  opacity:0;animation:up .6s ease .38s forwards;
+}
+
+/* ── FOUR NUMBERS ────────────────────────────── */
+.four-nums{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;border:1px solid var(--border-dark);
+  margin-bottom:2.8rem;background:white;
+  opacity:0;animation:up .6s ease .52s forwards;
+}
+.num-block{
+  padding:1.4rem 1.2rem;text-align:center;
+  border-right:1px solid var(--border);
+}
+.num-block:last-child{border-right:none}
+.num-n{
+  font-family:var(--serif);font-size:2.2rem;font-weight:800;
+  color:var(--teal);line-height:1;letter-spacing:-.02em;
+}
+.num-l{
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--light);margin-top:.35rem;
+  line-height:1.4;
+}
+
+/* CTA */
+.cta-row{
+  display:flex;align-items:center;gap:1.5rem;
+  opacity:0;animation:up .5s ease .66s forwards;
+}
+.btn-p{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:var(--teal);color:white;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;
+  padding:.82rem 1.9rem;transition:all .2s;
+}
+.btn-p:hover{background:var(--teal-dark);transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(27,108,168,.22)}
+.btn-p .arr{transition:transform .2s}
+.btn-p:hover .arr{transform:translateX(3px)}
+.cta-note{font-family:var(--mono);font-size:.62rem;color:var(--light);letter-spacing:.06em}
+
+/* ── ② MIDDLE OF PYRAMID — THREE MOMENTS ─────── */
+#moments{padding:4rem 0;border-bottom:1px solid var(--border)}
+
+.pyramid-label{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--light);margin-bottom:2.2rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.pyramid-label::before{content:'';width:1.5rem;height:1px;background:var(--border-dark)}
+.pyramid-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Each moment: NUMBER huge + one line + one sentence + link */
+.moment{
+  display:grid;grid-template-columns:160px 1fr;
+  gap:0;border-top:1px solid var(--border);
+  padding:2rem 0;align-items:start;
+  transition:background .15s;
+}
+.moment:last-child{border-bottom:1px solid var(--border)}
+.moment:hover{background:white;margin:0 -1.5rem;padding:2rem 1.5rem}
+
+.moment-num-big{
+  font-family:var(--serif);font-size:3.8rem;font-weight:800;
+  color:var(--teal);line-height:.9;letter-spacing:-.04em;
+  padding-right:1rem;border-right:1px solid var(--border);
+  margin-right:2rem;padding-top:.2rem;
+}
+.moment-num-unit{
+  font-family:var(--mono);font-size:.75rem;font-weight:400;
+  color:var(--muted);letter-spacing:.04em;display:block;
+  margin-top:.3rem;
+}
+
+.moment-body{}
+.m-context{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:.4rem;
+}
+.m-headline{
+  font-family:var(--serif);font-size:1.15rem;font-weight:700;
+  color:var(--text);line-height:1.22;letter-spacing:-.01em;
+  margin-bottom:.55rem;
+}
+.m-sentence{
+  font-size:.88rem;color:var(--muted);line-height:1.65;
+  margin-bottom:.9rem;max-width:460px;
+}
+.m-link{
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);text-decoration:none;
+  display:inline-flex;align-items:center;gap:.4rem;
+  border-bottom:1px solid var(--teal-border);padding-bottom:.1rem;
+  transition:all .2s;
+}
+.m-link:hover{gap:.65rem;border-color:var(--teal)}
+
+/* ── LIVE WORK STRIP ─────────────────────────── */
+#live{
+  padding:2.5rem 0;
+  border-bottom:1px solid var(--border);
+  background:white;
+}
+.live-strip{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;
+}
+.live-left{display:flex;align-items:center;gap:1.2rem}
+.live-dot{
+  width:8px;height:8px;border-radius:50%;background:#22c55e;
+  flex-shrink:0;
+  animation:pulse-g 2s ease infinite;
+}
+@keyframes pulse-g{
+  0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}
+  50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}
+}
+.live-text{}
+.live-label{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
+  text-transform:uppercase;color:#22c55e;margin-bottom:.2rem;
+}
+.live-title{
+  font-family:var(--serif);font-size:1rem;font-weight:700;
+  color:var(--text);letter-spacing:-.01em;
+}
+.live-right{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
+.live-stat{text-align:center}
+.ls-n{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--teal);line-height:1}
+.ls-l{font-family:var(--mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin-top:.2rem}
+.live-btn{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);text-decoration:none;
+  border:1px solid var(--teal-border);padding:.55rem 1.1rem;
+  transition:all .2s;white-space:nowrap;
+}
+.live-btn:hover{background:var(--teal-light);border-color:var(--teal)}
+
+/* ── ③ BOTTOM OF PYRAMID — STORY + CONTACT ───── */
+#contact{padding:5rem 0}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+
+.story-para{
+  font-size:.9rem;color:var(--muted);line-height:1.85;
+  border-left:2px solid var(--border);padding-left:1.2rem;
+  font-style:italic;margin-bottom:1.5rem;
+}
+.story-para strong{color:var(--text);font-style:normal;font-weight:500}
+
+.contact-head{
+  font-family:var(--serif);font-size:1.5rem;font-weight:700;
+  color:var(--text);letter-spacing:-.015em;margin-bottom:.3rem;
+}
+.contact-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.8rem}
+
+.clinks{display:flex;flex-direction:column;gap:0}
+.clink{
+  display:flex;align-items:center;gap:.8rem;
+  text-decoration:none;color:var(--text);font-size:.87rem;
+  padding:.65rem 0;border-bottom:1px solid var(--border);
+  transition:color .2s;
+}
+.clink:hover{color:var(--teal)}
+.ci{font-family:var(--mono);font-size:.63rem;color:var(--teal);width:20px;text-align:center;flex-shrink:0}
+
+.auth-note{
+  margin-top:1.6rem;padding:1rem 1.2rem;
+  background:var(--teal-light);border-left:3px solid var(--teal);
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.04em;
+  color:var(--teal);line-height:1.65;
+}
+
+/* ── FOOTER ──────────────────────────────────── */
+footer{
+  padding:1.2rem 3rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer p{font-family:var(--mono);font-size:.62rem;color:var(--light);letter-spacing:.04em}
+
+/* ── ANIMATIONS ──────────────────────────────── */
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media(max-width:700px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}
+  .wrap{padding:0 1.5rem}
+  #hero{padding:8rem 0 4rem}
+  .four-nums{grid-template-columns:1fr 1fr}
+  .num-block:nth-child(2){border-right:none}
+  .num-block:nth-child(3){border-top:1px solid var(--border)}
+  .moment{grid-template-columns:1fr;gap:.8rem}
+  .moment-num-big{font-size:2.5rem;border-right:none;border-bottom:1px solid var(--border);padding-bottom:.8rem;margin-right:0;padding-right:0;margin-bottom:.5rem}
+  .live-strip{flex-direction:column;align-items:flex-start}
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem}
+  #contact{padding:3.5rem 0}
+  footer{flex-direction:column;gap:.4rem;text-align:center;padding:1.2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Ashish Deshmukh</a>
+  <ul class="nav-links">
+    <li><a href="#moments">Work</a></li>
+    <li><a href="po.html">Case Study</a></li>
+    <li><a href="https://gsm-dashboard-crandall.web.app" target="_blank">Live Dashboard</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ① TOP ─────────────────────────────────────── -->
+<section id="hero">
+  <div class="wrap">
+
+    <span class="badge">Currently Applying · Service New Brunswick · R85-2025/26-713</span>
+
+    <h1 class="h1">
+      Delivered for Aetna,<br>
+      Humana &amp; 300+ clients.<br>
+      <span class="teal">Now focused on<br>New Brunswick.</span>
+    </h1>
+
+    <p class="sub">
+      Every organisation I have joined had a backlog full of competing custom requests.
+      I am the person who finds the pattern — and builds the platform.
+    </p>
+
+    <!-- FOUR NUMBERS — most important proof, immediately visible -->
+    <div class="four-nums">
+      <div class="num-block">
+        <div class="num-n">6+</div>
+        <div class="num-l">Years PO &amp;<br>BA Experience</div>
+      </div>
+      <div class="num-block">
+        <div class="num-n">300+</div>
+        <div class="num-l">Enterprise<br>Clients Served</div>
+      </div>
+      <div class="num-block">
+        <div class="num-n">$45K</div>
+        <div class="num-l">MITACS Grant<br>Awarded</div>
+      </div>
+      <div class="num-block">
+        <div class="num-n">1,675</div>
+        <div class="num-l">Records in<br>Live System Built</div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a href="po.html" class="btn-p">See How I Think <span class="arr">→</span></a>
+      <span class="cta-note">Product Owner Case Study — 4 min read</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ② MIDDLE ─────────────────────────────────── -->
+<section id="moments">
+  <div class="wrap">
+
+    <div class="pyramid-label rev">Three Moments That Define This Work</div>
+
+    <!-- MOMENT 01 -->
+    <div class="moment rev">
+      <div class="moment-num-big">
+        2
+        <span class="moment-num-unit">weeks</span>
+      </div>
+      <div class="moment-body">
+        <div class="m-context">Bottlecapps · Product Owner · 2023–2024</div>
+        <div class="m-headline">To standardise what had been rebuilt five times before.</div>
+        <p class="m-sentence">A spirits brand needed a market research campaign across 300+ US liquor stores. I pushed standardisation over custom build — in a room with the CTO and a paying client — and shipped a reusable platform framework in two weeks.</p>
+        <a href="po.html" class="m-link">Full case study + interactive Decision Room →</a>
+      </div>
+    </div>
+
+    <!-- MOMENT 02 -->
+    <div class="moment rev">
+      <div class="moment-num-big">
+        2+
+        <span class="moment-num-unit">years</span>
+      </div>
+      <div class="moment-body">
+        <div class="m-context">Cotiviti India · Business Analyst · 2021–2023</div>
+        <div class="m-headline">As primary BA for two Fortune 500 US health insurers.</div>
+        <p class="m-sentence">Aetna and Humana operate in regulated environments where ambiguous requirements have financial and legal consequences. I managed their requirements across multiple concurrent workstreams — with zero tolerance for vagueness.</p>
+        <a href="ba.html" class="m-link">Business Analyst case study →</a>
+      </div>
+    </div>
+
+    <!-- MOMENT 03 -->
+    <div class="moment rev">
+      <div class="moment-num-big">
+        1,675
+        <span class="moment-num-unit">records</span>
+      </div>
+      <div class="moment-body">
+        <div class="m-context">Crandall University · GRA · 2025–2026</div>
+        <div class="m-headline">In a live analytics platform I built and deployed. Running now.</div>
+        <p class="m-sentence">For Crandall's Graduate School of Management I designed and deployed a full statistical analytics system — ANOVA, Chi-Square, Levene's testing — across 1,675 student records. The institution uses it for academic governance decisions.</p>
+        <a href="https://gsm-dashboard-crandall.web.app" target="_blank" class="m-link">Open live dashboard →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIVE WORK STRIP -->
+<div id="live">
+  <div class="wrap">
+    <div class="live-strip rev">
+      <div class="live-left">
+        <span class="live-dot"></span>
+        <div class="live-text">
+          <div class="live-label">Live Production System</div>
+          <div class="live-title">GSM Grade Analytics Dashboard — Crandall University</div>
+        </div>
+      </div>
+      <div class="live-right">
+        <div class="live-stat"><div class="ls-n">99.9%</div><div class="ls-l">Pass Rate</div></div>
+        <div class="live-stat"><div class="ls-n">3</div><div class="ls-l">Stat Tests</div></div>
+        <div class="live-stat"><div class="ls-n">5</div><div class="ls-l">Filter Dims</div></div>
+        <a href="https://gsm-dashboard-crandall.web.app" target="_blank" class="live-btn">Open Dashboard →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ BOTTOM ─────────────────────────────────── -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <div>
+        <p class="story-para rev">
+          "Every organisation I have joined had a backlog full of competing custom requests.
+          <strong>I am the person who looks underneath the request for the repeating pattern —
+          then builds the solution that makes the next ten requests faster, not just the current one.</strong>
+          That instinct comes from six years of sitting in rooms where the wrong decision is expensive."
+        </p>
+        <p class="story-para rev" style="margin-bottom:0">
+          Based in Moncton, NB. Fully authorized to work in Canada on a
+          <strong>Post-Graduate Work Permit</strong>. Immediately available.
+          English proficiency — <strong>IELTS 7.5 Band, CEFR C1</strong>.
+        </p>
+      </div>
+
+      <div>
+        <div class="contact-head rev">Open to roles<br>across New Brunswick.</div>
+        <div class="contact-sub rev">Response within 24 hours.</div>
+        <div class="clinks rev">
+          <a href="mailto:ashish.moncton@gmail.com" class="clink">
+            <span class="ci">@</span>ashish.moncton@gmail.com
+          </a>
+          <a href="tel:+15068992769" class="clink">
+            <span class="ci">☎</span>+1 (506) 899-2769
+          </a>
+          <a href="https://linkedin.com/in/ashishdeshmukh730" target="_blank" class="clink">
+            <span class="ci">in</span>linkedin.com/in/ashishdeshmukh730
+          </a>
+          <a href="Ashish_Deshmukh_SNB_F.pdf" class="clink">
+            <span class="ci">↓</span>Download Resume (PDF)
+          </a>
+        </div>
+        <div class="auth-note rev">
+          Product Owner · Business Analyst · BI Analyst · Data Analyst<br>
+          NOC 0/1/2/3 Qualifying · PGWP · Moncton, NB
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Ashish Deshmukh · Moncton, NB</p>
+  <p>Built as a product. Iterated like one.</p>
+</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 70);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.rev').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

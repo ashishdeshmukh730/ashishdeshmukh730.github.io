@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Owner — Ashish Deshmukh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--text:#111827;--muted:#6B7280;--light:#9CA3AF;
+  --teal:#1B6CA8;--teal-dark:#145487;--teal-light:#EBF4FB;
+  --teal-border:rgba(27,108,168,0.14);
+  --border:#E5E7EB;--border-dark:#D1D5DB;
+  --red:#DC2626;--red-light:#FEF2F2;
+  --green:#16a34a;--green-light:#F0FDF4;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(250,250,248,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border)}
+.nav-name{font-family:var(--serif);font-size:.95rem;font-weight:700;
+  color:var(--text);text-decoration:none;letter-spacing:-.01em}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.on{color:var(--teal)}
+
+.wrap{max-width:800px;margin:0 auto;padding:0 2.5rem}
+section{padding:4.5rem 0}
+section+section{border-top:1px solid var(--border)}
+
+/* ── ① TOP — HERO WITH OUTCOME METRICS ───────── */
+#hero{
+  padding:9rem 0 4.5rem;
+  border-bottom:3px solid var(--text);
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(0deg,
+    transparent,transparent 47px,var(--border) 47px,var(--border) 48px);
+  opacity:.22;pointer-events:none;
+}
+.back{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);text-decoration:none;
+  transition:color .2s;margin-bottom:2rem;
+  opacity:0;animation:up .4s ease .05s forwards;
+}
+.back:hover{color:var(--teal)}
+.role-tag{
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:.8rem;
+  display:flex;align-items:center;gap:.6rem;
+  opacity:0;animation:up .4s ease .15s forwards;
+}
+.role-tag::after{content:'';flex:1;height:1px;background:var(--teal-border);max-width:50px}
+
+.page-h1{
+  font-family:var(--serif);
+  font-size:clamp(2.2rem,5.5vw,4rem);
+  font-weight:800;line-height:1.05;letter-spacing:-.03em;
+  color:var(--text);margin-bottom:1.2rem;max-width:640px;
+  opacity:0;animation:up .7s ease .25s forwards;
+}
+.page-h1 em{font-style:italic;color:var(--teal)}
+
+/* ── OUTCOME METRICS — IMMEDIATELY BELOW TITLE ── */
+/* BCG principle: state the answer first */
+.outcome-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border-dark);background:white;
+  margin:2rem 0 1.5rem;
+  opacity:0;animation:up .6s ease .4s forwards;
+}
+.ob{
+  padding:1.5rem 1.2rem;text-align:center;
+  border-right:1px solid var(--border);
+}
+.ob:last-child{border-right:none}
+.ob-n{
+  font-family:var(--serif);font-size:2.4rem;font-weight:800;
+  color:var(--teal);line-height:1;letter-spacing:-.025em;
+}
+.ob-l{
+  font-family:var(--mono);font-size:.57rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--light);margin-top:.35rem;line-height:1.5;
+}
+
+.verdict{
+  font-size:.95rem;color:var(--muted);line-height:1.7;
+  max-width:520px;font-weight:300;border-left:2px solid var(--teal);
+  padding-left:1rem;
+  opacity:0;animation:up .5s ease .55s forwards;
+}
+.verdict strong{color:var(--text);font-weight:500}
+
+/* ── ② MIDDLE — DECISION ROOM ────────────────── */
+#decision-room{background:white;border-top:none;border-bottom:none}
+
+.dr-intro{
+  font-size:.9rem;color:var(--muted);max-width:520px;
+  line-height:1.75;margin-bottom:2rem;
+}
+
+/* Toggle */
+.toggle{
+  display:flex;background:var(--bg);border:1px solid var(--border-dark);
+  padding:.2rem;gap:.2rem;width:fit-content;margin-bottom:2rem;
+}
+.tb{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.09em;
+  text-transform:uppercase;padding:.6rem 1.3rem;cursor:pointer;
+  border:none;background:transparent;color:var(--muted);transition:all .2s;
+}
+.tb.on{background:var(--teal);color:white}
+.tb:not(.on):hover{color:var(--teal)}
+
+/* Situation */
+.dr-sit{
+  background:var(--teal);color:white;
+  padding:1.2rem 1.6rem;text-align:center;
+  position:relative;
+}
+.dr-sit::after{
+  content:'';position:absolute;bottom:-14px;left:50%;
+  transform:translateX(-50%);
+  border:7px solid transparent;border-top:7px solid var(--teal);
+}
+.dr-sit-lbl{
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:.3rem;
+}
+.dr-sit-txt{
+  font-family:var(--serif);font-size:1rem;font-weight:700;line-height:1.3;
+}
+
+/* Fork */
+.fork{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;
+  margin-top:1.5rem;
+}
+.path{
+  border:2px solid var(--border);padding:1.6rem;
+  transition:all .3s;opacity:.35;transform:scale(.97);
+}
+.path.shown{opacity:1;transform:scale(1)}
+.path.shown.bad{border-color:var(--red);background:var(--red-light)}
+.path.shown.good{border-color:var(--green);background:var(--green-light)}
+
+.ptag{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
+  text-transform:uppercase;padding:.22rem .65rem;
+  display:inline-block;margin-bottom:.8rem;color:white;
+}
+.bad .ptag{background:var(--red)}
+.good .ptag{background:var(--green)}
+.ptitle{
+  font-family:var(--serif);font-size:.95rem;font-weight:700;
+  color:var(--text);margin-bottom:.8rem;letter-spacing:-.01em;line-height:1.2;
+}
+.plist{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.plist li{
+  font-size:.82rem;color:var(--muted);padding-left:1rem;
+  position:relative;line-height:1.5;
+}
+.bad.shown .plist li::before{
+  content:'✗';position:absolute;left:0;color:var(--red);font-size:.72rem;font-weight:700;
+}
+.good.shown .plist li::before{
+  content:'✓';position:absolute;left:0;color:var(--green);font-size:.72rem;font-weight:700;
+}
+.presult{
+  margin-top:1rem;padding:.9rem 1rem;font-size:.8rem;
+  line-height:1.55;font-style:italic;border-top:1px solid;
+}
+.bad.shown .presult{border-color:rgba(220,38,38,.2);color:var(--red);background:rgba(220,38,38,.04)}
+.good.shown .presult{border-color:rgba(22,163,74,.2);color:var(--green);background:rgba(22,163,74,.04)}
+
+/* Push quote */
+.pq{
+  font-family:var(--serif);font-size:clamp(1.2rem,2.8vw,1.6rem);
+  font-weight:700;font-style:italic;line-height:1.35;
+  color:var(--text);border-left:3px solid var(--teal);
+  padding-left:1.3rem;margin:2.5rem 0;max-width:540px;
+}
+
+/* ── STAKEHOLDER ROW ─────────────────────────── */
+.sh-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem}
+.sh{
+  background:white;border:1px solid var(--border);
+  padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem;
+  transition:border-color .2s;min-width:0;
+}
+.sh:hover{border-color:var(--teal)}
+.sh-role{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--teal);white-space:nowrap}
+.sh-what{font-size:.78rem;color:var(--muted)}
+
+/* ── DESIGN INSIGHT ──────────────────────────── */
+.insight{
+  background:var(--teal-light);border:1px solid var(--teal-border);
+  border-left:3px solid var(--teal);padding:1.6rem 1.8rem;margin-top:1.5rem;
+}
+.ins-lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:.5rem}
+.ins-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;
+  color:var(--text);margin-bottom:.7rem;letter-spacing:-.01em}
+.ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.8rem}
+.ins-card{background:white;border:1px solid var(--teal-border);padding:1rem}
+.ins-for{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:.3rem}
+.ins-text{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+/* ── ③ BOTTOM — THE FULL STORY + TRANSFER ─────── */
+.body-p{font-size:.93rem;color:var(--muted);line-height:1.85;max-width:580px}
+.body-p+.body-p{margin-top:.9rem}
+.body-p strong{color:var(--text);font-weight:500}
+
+.transfer{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1.8rem}
+.tc{border:1px solid var(--border);background:white;padding:1.3rem;transition:border-color .2s}
+.tc:hover{border-color:var(--teal)}
+.tc-ctx{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:.35rem}
+.tc-skill{font-family:var(--serif);font-size:.95rem;font-weight:700;
+  color:var(--text);margin-bottom:.4rem;letter-spacing:-.01em;line-height:1.2}
+.tc-text{font-size:.8rem;color:var(--muted);line-height:1.6}
+
+/* CTA */
+.cta{
+  background:var(--teal);padding:2.2rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:2rem;flex-wrap:wrap;margin-top:3rem;
+}
+.cta-t{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:white;line-height:1.3}
+.cta-s{font-size:.8rem;color:rgba(255,255,255,.72);margin-top:.25rem}
+.btn-w{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:white;color:var(--teal);
+  font-family:var(--mono);font-size:.67rem;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;
+  padding:.75rem 1.5rem;transition:all .2s;flex-shrink:0;
+}
+.btn-w:hover{background:var(--teal-light);transform:translateY(-1px)}
+
+footer{
+  padding:1.3rem 3rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer p{font-family:var(--mono);font-size:.62rem;color:var(--light);letter-spacing:.04em}
+
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:700px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}
+  .wrap{padding:0 1.5rem}
+  #hero{padding:8rem 0 4rem}
+  .outcome-bar{grid-template-columns:1fr 1fr}
+  .ob:nth-child(2){border-right:none}
+  .ob:nth-child(3){border-top:1px solid var(--border)}
+  .fork,.ins-grid,.transfer{grid-template-columns:1fr}
+  .cta{flex-direction:column;align-items:flex-start}
+  section{padding:3.5rem 0}
+  footer{flex-direction:column;gap:.4rem;text-align:center;padding:1.2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Ashish Deshmukh</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="po.html" class="on">Product Owner</a></li>
+    <li><a href="ba.html">BA</a></li>
+    <li><a href="bi.html">BI Analyst</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ① TOP — OUTCOME FIRST ──────────────────────── -->
+<section id="hero">
+  <div class="wrap">
+    <a href="index.html" class="back">← Back to Portfolio</a>
+    <div class="role-tag">01 · Product Owner Case Study</div>
+
+    <h1 class="page-h1">
+      From Custom Builds<br>
+      to <em>Platform Capability</em>
+    </h1>
+
+    <!-- OUTCOME METRICS FIRST — BCG Pyramid -->
+    <div class="outcome-bar">
+      <div class="ob"><div class="ob-n">2</div><div class="ob-l">Weeks to<br>Build It</div></div>
+      <div class="ob"><div class="ob-n">30</div><div class="ob-l">Days<br>In Market</div></div>
+      <div class="ob"><div class="ob-n">3</div><div class="ob-l">Bottle Variants<br>Tested</div></div>
+      <div class="ob"><div class="ob-n">1</div><div class="ob-l">Data-Driven<br>Brand Decision</div></div>
+    </div>
+
+    <!-- VERDICT — one sentence -->
+    <p class="verdict">
+      A spirits brand needed to test three bottle designs across 300+ US liquor stores.
+      I recognised the real problem was not the campaign —
+      <strong>it was that we kept rebuilding the same thing from scratch.</strong>
+      I pushed standardisation over custom build, in a room with the CTO and a paying client,
+      and delivered a reusable platform framework in two weeks.
+    </p>
+  </div>
+</section>
+
+<!-- ② MIDDLE — DECISION ROOM ───────────────────── -->
+<section id="decision-room" style="background:white">
+  <div class="wrap">
+    <div class="rev" style="font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--light);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem"><span style="width:1.5rem;height:1px;background:var(--border-dark);display:inline-block"></span>The Decision Room<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+
+    <p class="dr-intro rev">
+      In a stakeholder session with our PM, CTO, Lead Mobile Developer, and the brand's
+      Marketing head — I put forward a position that was not the easy one.
+      Toggle between the two paths to see what was at stake.
+    </p>
+
+    <div class="toggle rev">
+      <button class="tb on" id="btn-bad" onclick="show('bad')">Path A — Build Custom</button>
+      <button class="tb" id="btn-good" onclick="show('good')">Path B — Build Platform ✓</button>
+    </div>
+
+    <!-- SITUATION -->
+    <div class="dr-sit rev">
+      <div class="dr-sit-lbl">The Brief That Arrived</div>
+      <div class="dr-sit-txt">Vodka brand · 3 bottle variants · 50ml samples · random store selection · QR review collection · 30-day window · hard deadline</div>
+    </div>
+
+    <!-- FORK -->
+    <div class="fork rev">
+      <div class="path bad shown" id="p-bad">
+        <span class="ptag">Path A</span>
+        <div class="ptitle">Build custom for this campaign. Ship fast. Move on.</div>
+        <ul class="plist">
+          <li>Custom store selection logic for this campaign only</li>
+          <li>Custom variant tracking built from scratch</li>
+          <li>Custom QR + gift card flow for this brand</li>
+          <li>Campaign ships on time</li>
+          <li>Next brand arrives next month with the same brief</li>
+          <li>Dev team rebuilds everything again</li>
+          <li>Engineering velocity decreases with each activation</li>
+          <li>Team frustration grows</li>
+        </ul>
+        <div class="presult">"We delivered the campaign. We are still one brief away from the same problem."</div>
+      </div>
+
+      <div class="path good" id="p-good">
+        <span class="ptag">Path B — What I Chose ✓</span>
+        <div class="ptitle">Build a reusable framework. Use this campaign as the first implementation.</div>
+        <ul class="plist">
+          <li>Standardised store selection module — configurable, not coded</li>
+          <li>Reusable variant management framework</li>
+          <li>QR → incentive → review as a platform feature</li>
+          <li>Two-week build absorbs the upfront pressure</li>
+          <li>Campaign ships — as the framework's first run</li>
+          <li>Next brand configures. Does not rebuild.</li>
+          <li>Engineering velocity increases with every activation</li>
+          <li>Dev team frustration converts to confidence</li>
+        </ul>
+        <div class="presult">"We delivered the campaign. And we will never need to build this again."</div>
+      </div>
+    </div>
+
+    <blockquote class="pq rev">
+      "I pushed standardisation in a room with a CTO, a PM, and a paying client
+      who had a hard deadline. The job of a PO is not to make the room comfortable.
+      It is to make the right call."
+    </blockquote>
+
+    <!-- STAKEHOLDERS -->
+    <div class="rev" style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-bottom:.8rem">Who was in the room</div>
+    <div class="sh-row rev">
+      <div class="sh"><div><div class="sh-role">CTO</div><div class="sh-what">Engineering velocity argument</div></div></div>
+      <div class="sh"><div><div class="sh-role">PM</div><div class="sh-what">Roadmap alignment</div></div></div>
+      <div class="sh"><div><div class="sh-role">Lead Mobile Dev</div><div class="sh-what">Technical feasibility in 2 weeks</div></div></div>
+      <div class="sh"><div><div class="sh-role">Brand Marketing Head</div><div class="sh-what">Campaign runs on time. Full stop.</div></div></div>
+      <div class="sh" style="border-color:var(--teal);background:var(--teal-light)"><div><div class="sh-role" style="color:var(--teal)">Me — PO</div><div class="sh-what">Held the position. Managed the room.</div></div></div>
+    </div>
+
+    <!-- QR INSIGHT -->
+    <div class="insight rev">
+      <div class="ins-lbl">★ The Product Design Insight</div>
+      <div class="ins-title">QR on Sample Bottle → Review → 25% Gift Card for Next Purchase</div>
+      <div class="ins-grid">
+        <div class="ins-card">
+          <div class="ins-for">For the Brand</div>
+          <div class="ins-text">Consumer reviews attributed per bottle variant — comparative data to make a real market launch decision.</div>
+        </div>
+        <div class="ins-card">
+          <div class="ins-for">For the Retailer</div>
+          <div class="ins-text">A 25% gift card driving the customer back to the store — repeat purchase intent at the exact moment of engagement.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ BOTTOM — THE FULL STORY + SNB TRANSFER ─────── -->
+<section>
+  <div class="wrap">
+    <div class="rev" style="font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--light);margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem"><span style="width:1.5rem;height:1px;background:var(--border-dark);display:inline-block"></span>The Full Story<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+
+    <p class="body-p rev">A major spirits brand was preparing to enter the US market with a new vodka. They had narrowed their product to three distinct options — different bottle shapes, sizes, and visual identities — but had not committed to one. Their strategy: distribute 50ml sample bottles across randomly selected partner liquor stores, bundle each sample with a gift product, use QR codes on the bottle to collect consumer reviews, and incentivise reviews with a 25% gift card for the customer's next purchase.</p>
+
+    <p class="body-p rev">When the brief landed on my backlog, I heard the development team's familiar frustration. Every brand activation required the same rebuild — custom store selection, custom variant tracking, custom review flow. Engineering hours consumed by repetition. <strong>The brand had a campaign problem. We had a platform problem.</strong> And we were about to solve the brand's problem in a way that guaranteed the platform problem would return next month.</p>
+
+    <p class="body-p rev">I proposed investing sprint capacity upfront to build a standardised brand activation module — configurable, reusable, scalable — and using this campaign as its first implementation. We internally prioritised based on opportunity size, allocated resources, and delivered the framework in two weeks. The campaign ran for thirty days. The brand received comparative performance data across all three bottle designs and made their US market launch decision from real consumer response.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="rev" style="font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--light);margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem"><span style="width:1.5rem;height:1px;background:var(--border-dark);display:inline-block"></span>Why This Matters for SNB<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+
+    <p class="body-p rev">SNB's Salesforce portfolio serves multiple government departments — each arriving with what feels like a unique requirement. <strong>The PO who builds custom for each one creates a platform that cannot scale. The PO who looks underneath the request and builds reusable capability creates a platform that gets faster over time.</strong> Different domain. Identical problem. Same decision required daily.</p>
+
+    <div class="transfer rev">
+      <div class="tc">
+        <div class="tc-ctx">At Bottlecapps</div>
+        <div class="tc-skill">Brand activation requests → Standardised module</div>
+        <div class="tc-text">Five brands each wanted "their" campaign built. I built one framework that served all of them — faster each time.</div>
+      </div>
+      <div class="tc">
+        <div class="tc-ctx">At SNB</div>
+        <div class="tc-skill">Department requests → Reusable Salesforce components</div>
+        <div class="tc-text">Multiple departments each want "their" feature. The PO who builds platform capability instead of custom solutions wins.</div>
+      </div>
+      <div class="tc">
+        <div class="tc-ctx">At Bottlecapps</div>
+        <div class="tc-skill">Dev team frustration → Engineering confidence</div>
+        <div class="tc-text">The team that rebuilds the same thing monthly loses confidence. Standardisation converts frustration into momentum.</div>
+      </div>
+      <div class="tc">
+        <div class="tc-ctx">At SNB</div>
+        <div class="tc-skill">Delivery bottlenecks → Sprint predictability</div>
+        <div class="tc-text">Agile teams need clear priorities and reusable patterns. The PO who provides both builds teams that deliver consistently.</div>
+      </div>
+    </div>
+
+    <div class="cta rev">
+      <div>
+        <div class="cta-t">Ready to bring this thinking to Service New Brunswick.</div>
+        <div class="cta-s">Available immediately · Moncton, NB · PGWP Authorized · IELTS 7.5</div>
+      </div>
+      <a href="mailto:ashish.moncton@gmail.com" class="btn-w">Get in Touch →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="index.html" style="color:var(--teal);text-decoration:none;font-family:var(--mono);font-size:.62rem">← Back to Portfolio</a></p>
+  <p>© 2026 Ashish Deshmukh · Moncton, NB</p>
+</footer>
+
+<script>
+function show(which) {
+  const bad = document.getElementById('p-bad');
+  const good = document.getElementById('p-good');
+  const btnB = document.getElementById('btn-bad');
+  const btnG = document.getElementById('btn-good');
+  if (which === 'bad') {
+    bad.classList.add('shown'); good.classList.remove('shown');
+    btnB.classList.add('on'); btnG.classList.remove('on');
+  } else {
+    good.classList.add('shown'); bad.classList.remove('shown');
+    btnG.classList.add('on'); btnB.classList.remove('on');
+  }
+}
+// Reader controls the toggle — no auto-switch
+// Default: Path A shown so they feel the problem first
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 60);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.rev').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
