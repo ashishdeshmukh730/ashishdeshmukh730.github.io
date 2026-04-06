@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BI Analyst — Ashish Deshmukh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--text:#111827;--muted:#6B7280;--light:#9CA3AF;
+  --teal:#1B6CA8;--teal-dark:#145487;--teal-light:#EBF4FB;
+  --teal-border:rgba(27,108,168,0.14);
+  --border:#E5E7EB;--border-dark:#D1D5DB;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(250,250,248,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border)}
+.nav-name{font-family:var(--serif);font-size:.95rem;font-weight:700;
+  color:var(--text);text-decoration:none;letter-spacing:-.01em}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.on{color:var(--teal)}
+
+.wrap{max-width:800px;margin:0 auto;padding:0 2.5rem}
+section{padding:4.5rem 0}
+section+section{border-top:1px solid var(--border)}
+
+#hero{padding:9rem 0 4.5rem;border-bottom:3px solid var(--text);
+  position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 47px,
+  var(--border) 47px,var(--border) 48px);opacity:.22;pointer-events:none}
+
+.back{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);
+  font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  text-decoration:none;transition:color .2s;margin-bottom:2rem;
+  opacity:0;animation:up .4s ease .05s forwards}
+.back:hover{color:var(--teal)}
+.role-tag{font-family:var(--mono);font-size:.63rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:.8rem;
+  display:flex;align-items:center;gap:.6rem;
+  opacity:0;animation:up .4s ease .15s forwards}
+.role-tag::after{content:'';flex:1;height:1px;background:var(--teal-border);max-width:50px}
+.page-h1{font-family:var(--serif);font-size:clamp(2.2rem,5.5vw,4rem);
+  font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--text);
+  margin-bottom:1.2rem;max-width:640px;
+  opacity:0;animation:up .7s ease .25s forwards}
+.page-h1 em{font-style:italic;color:var(--teal)}
+
+.outcome-bar{display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border-dark);background:white;
+  margin:2rem 0 1.5rem;opacity:0;animation:up .6s ease .4s forwards}
+.ob{padding:1.5rem 1.2rem;text-align:center;border-right:1px solid var(--border)}
+.ob:last-child{border-right:none}
+.ob-n{font-family:var(--serif);font-size:2.4rem;font-weight:800;
+  color:var(--teal);line-height:1;letter-spacing:-.025em}
+.ob-l{font-family:var(--mono);font-size:.57rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--light);margin-top:.35rem;line-height:1.5}
+
+.verdict{font-size:.95rem;color:var(--muted);line-height:1.7;max-width:520px;
+  font-weight:300;border-left:2px solid var(--teal);padding-left:1rem;
+  opacity:0;animation:up .5s ease .55s forwards}
+.verdict strong{color:var(--text);font-weight:500}
+
+/* LIVE BADGE */
+.live-badge{display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;
+  text-transform:uppercase;color:#16a34a;background:#F0FDF4;
+  border:1px solid rgba(22,163,74,.2);padding:.28rem .8rem;margin-bottom:1.5rem;
+  opacity:0;animation:up .4s ease .65s forwards}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;
+  animation:pulse-g 2s ease infinite}
+@keyframes pulse-g{
+  0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}
+  50%{box-shadow:0 0 0 4px rgba(34,197,94,0)}}
+
+.btn-live{display:inline-flex;align-items:center;gap:.55rem;
+  background:var(--teal);color:white;font-family:var(--mono);font-size:.7rem;
+  letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+  padding:.82rem 1.9rem;transition:all .2s;
+  opacity:0;animation:up .5s ease .75s forwards}
+.btn-live:hover{background:var(--teal-dark);transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(27,108,168,.22)}
+
+/* SECTION LABELS */
+.eyebrow{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--light);margin-bottom:1.4rem;
+  display:flex;align-items:center;gap:.8rem}
+.eyebrow::before{content:'';width:1.5rem;height:1px;background:var(--border-dark)}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--border)}
+
+h2{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;
+  color:var(--text);line-height:1.2;letter-spacing:-.015em;margin-bottom:.9rem}
+.body-p{font-size:.93rem;color:var(--muted);line-height:1.85;max-width:580px}
+.body-p+.body-p{margin-top:.9rem}
+.body-p strong{color:var(--text);font-weight:500}
+
+/* DASHBOARD PREVIEW — built in HTML to mirror the real app */
+.dash-preview{border:1px solid var(--border-dark);background:white;
+  overflow:hidden;margin:2rem 0}
+.dash-bar{background:#F9FAFB;border-bottom:1px solid var(--border);
+  padding:.6rem 1rem;display:flex;align-items:center;gap:.5rem}
+.dash-dot{width:8px;height:8px;border-radius:50%}
+.dash-url{font-family:var(--mono);font-size:.63rem;color:var(--muted);margin-left:.3rem}
+.dash-live{margin-left:auto;display:flex;align-items:center;gap:.4rem;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
+  text-transform:uppercase;color:#16a34a}
+
+.dash-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid var(--border)}
+.dash-kpi{padding:1.2rem;text-align:center;border-right:1px solid var(--border)}
+.dash-kpi:last-child{border-right:none}
+.kpi-n{font-family:var(--serif);font-size:2rem;font-weight:800;line-height:1}
+.kpi-l{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--light);margin-top:.2rem}
+.kpi-sub{font-size:.7rem;margin-top:.15rem}
+.c-green{color:#16a34a}.c-blue{color:#1B6CA8}.c-yellow{color:#d97706}.c-red{color:#dc2626}
+
+.dash-stats{display:grid;grid-template-columns:repeat(5,1fr);
+  padding:1.2rem;gap:1rem;border-bottom:1px solid var(--border)}
+.ds{text-align:center}
+.ds-n{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:var(--teal)}
+.ds-l{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--light);margin-top:.15rem}
+
+.dash-tests{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1rem;padding:1.2rem}
+.dt{border:1px solid var(--border);padding:.9rem;text-align:center}
+.dt-title{font-family:var(--mono);font-size:.63rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text);font-weight:500;margin-bottom:.4rem}
+.dt-n{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--teal)}
+.dt-l{font-family:var(--mono);font-size:.58rem;color:var(--light);margin-top:.15rem}
+
+.dash-footer{padding:.8rem 1.2rem;background:#F9FAFB;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center}
+.dash-footer-txt{font-family:var(--mono);font-size:.62rem;color:var(--muted)}
+.dash-link{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--teal);text-decoration:none;
+  border-bottom:1px solid var(--teal-border);padding-bottom:.1rem;
+  transition:border-color .2s}
+.dash-link:hover{border-color:var(--teal)}
+
+/* WHAT WAS BUILT */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.5rem}
+.card{border:1px solid var(--border);background:white;padding:1.4rem;transition:border-color .2s}
+.card:hover{border-color:var(--teal)}
+.card-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:.5rem}
+.card h3{font-family:var(--serif);font-size:1rem;font-weight:700;
+  color:var(--text);margin-bottom:.5rem;letter-spacing:-.01em}
+.card p{font-size:.83rem;color:var(--muted);line-height:1.65}
+
+/* INSIGHT */
+.insight{background:var(--teal-light);border:1px solid var(--teal-border);
+  border-left:3px solid var(--teal);padding:1.6rem 1.8rem;margin-top:1.5rem}
+.ins-lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:.5rem}
+.ins-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;
+  color:var(--text);margin-bottom:.7rem;letter-spacing:-.01em}
+.ins-text{font-size:.87rem;color:var(--muted);line-height:1.7}
+.ins-text strong{color:var(--teal);font-weight:500}
+
+/* CASE 2 — COTIVITI */
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.1rem;margin-top:1.5rem}
+
+/* CTA */
+.cta{background:var(--teal);padding:2.2rem 2.5rem;display:flex;
+  justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;margin-top:3rem}
+.cta-t{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:white;line-height:1.3}
+.cta-s{font-size:.8rem;color:rgba(255,255,255,.72);margin-top:.25rem}
+.btn-w{display:inline-flex;align-items:center;gap:.5rem;background:white;color:var(--teal);
+  font-family:var(--mono);font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;padding:.75rem 1.5rem;transition:all .2s;flex-shrink:0}
+.btn-w:hover{background:var(--teal-light);transform:translateY(-1px)}
+
+footer{padding:1.3rem 3rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center}
+footer p{font-family:var(--mono);font-size:.62rem;color:var(--light);letter-spacing:.04em}
+
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:700px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}.wrap{padding:0 1.5rem}
+  #hero{padding:8rem 0 4rem}
+  .outcome-bar{grid-template-columns:1fr 1fr}
+  .ob:nth-child(2){border-right:none}.ob:nth-child(3){border-top:1px solid var(--border)}
+  .dash-kpi-row{grid-template-columns:1fr 1fr}
+  .dash-kpi:nth-child(2){border-right:none}
+  .dash-kpi:nth-child(3){border-top:1px solid var(--border)}
+  .dash-stats{grid-template-columns:repeat(3,1fr)}
+  .dash-tests,.two-col,.three-col{grid-template-columns:1fr}
+  .cta{flex-direction:column;align-items:flex-start}
+  section{padding:3.5rem 0}
+  footer{flex-direction:column;gap:.4rem;text-align:center;padding:1.2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Ashish Deshmukh</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="po.html">Product Owner</a></li>
+    <li><a href="ba.html">BA</a></li>
+    <li><a href="bi.html" class="on">BI Analyst</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ① TOP — OUTCOME FIRST ──────────────────────── -->
+<section id="hero">
+  <div class="wrap">
+    <a href="index.html" class="back">← Back to Portfolio</a>
+    <div class="role-tag">03 · Business Intelligence Analyst</div>
+
+    <h1 class="page-h1">
+      Turning Data Into<br>
+      <em>Decisions That Stick</em>
+    </h1>
+
+    <div class="outcome-bar">
+      <div class="ob">
+        <div class="ob-n">Live</div>
+        <div class="ob-l">Production System<br>Built &amp; Deployed</div>
+      </div>
+      <div class="ob">
+        <div class="ob-n">1,675</div>
+        <div class="ob-l">Student Records<br>Analysed</div>
+      </div>
+      <div class="ob">
+        <div class="ob-n">3</div>
+        <div class="ob-l">Inferential<br>Tests Automated</div>
+      </div>
+      <div class="ob">
+        <div class="ob-n">2+</div>
+        <div class="ob-l">Years Healthcare<br>BI Delivery</div>
+      </div>
+    </div>
+
+    <p class="verdict">
+      From building a <strong>live statistical analytics platform for Crandall University</strong>
+      to delivering healthcare performance intelligence for Aetna and Humana —
+      I design BI systems that make complex data immediately actionable
+      for the people who need to make decisions with it.
+    </p>
+
+    <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <span class="live-badge"><span class="live-dot"></span>Live System Running Now</span>
+    </div>
+    <a href="https://gsm-dashboard-crandall.web.app" target="_blank" class="btn-live">
+      Open Live Dashboard →
+    </a>
+  </div>
+</section>
+
+<!-- ② CASE STUDY 1 — CRANDALL DASHBOARD ────────── -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow rev">Case Study 01 — Live Production System</div>
+    <h2 class="rev">GSM Grade Analytics Platform — Crandall University</h2>
+
+    <p class="body-p rev"><strong>Role:</strong> Graduate Research Assistant / Functional BI Owner &nbsp;·&nbsp; Sep 2025 – Jan 2026 &nbsp;·&nbsp; Moncton, NB</p>
+    <p class="body-p rev">The Graduate School of Management had no systematic way to analyse academic performance patterns across programs, courses, terms, and delivery modes. Grade data existed in silos. Decisions about curriculum and student support were made without statistical evidence. I designed and deployed the solution end-to-end — from data architecture to the live user interface.</p>
+
+    <!-- DASHBOARD PREVIEW — HTML recreation of real app stats -->
+    <div class="dash-preview rev">
+      <div class="dash-bar">
+        <div class="dash-dot" style="background:#f87171"></div>
+        <div class="dash-dot" style="background:#fbbf24"></div>
+        <div class="dash-dot" style="background:#4ade80"></div>
+        <span class="dash-url">gsm-dashboard-crandall.web.app</span>
+        <div class="dash-live">
+          <span class="live-dot"></span> Live
+        </div>
+      </div>
+
+      <div class="dash-kpi-row">
+        <div class="dash-kpi">
+          <div class="kpi-n c-green">1,336</div>
+          <div class="kpi-l">A-Range Grades</div>
+          <div class="kpi-sub c-green">79.8%</div>
+        </div>
+        <div class="dash-kpi">
+          <div class="kpi-n c-blue">225</div>
+          <div class="kpi-l">Satisfactory</div>
+          <div class="kpi-sub c-blue">13.4%</div>
+        </div>
+        <div class="dash-kpi">
+          <div class="kpi-n c-yellow">112</div>
+          <div class="kpi-l">Low Pass</div>
+          <div class="kpi-sub c-yellow">6.7%</div>
+        </div>
+        <div class="dash-kpi">
+          <div class="kpi-n c-red">2</div>
+          <div class="kpi-l">Failures</div>
+          <div class="kpi-sub c-red">0.1%</div>
+        </div>
+      </div>
+
+      <div class="dash-stats">
+        <div class="ds"><div class="ds-n">3.67</div><div class="ds-l">Mean GPA</div></div>
+        <div class="ds"><div class="ds-n">0.48</div><div class="ds-l">Std Dev</div></div>
+        <div class="ds"><div class="ds-n">-2.23</div><div class="ds-l">Skewness</div></div>
+        <div class="ds"><div class="ds-n">8.20</div><div class="ds-l">Kurtosis</div></div>
+        <div class="ds"><div class="ds-n">1,675</div><div class="ds-l">Sample Size</div></div>
+      </div>
+
+      <div class="dash-tests">
+        <div class="dt">
+          <div class="dt-title">ANOVA</div>
+          <div class="dt-n">F = 1.898</div>
+          <div class="dt-l">Mean Grade Comparison</div>
+        </div>
+        <div class="dt">
+          <div class="dt-title">Chi-Square</div>
+          <div class="dt-n">χ² = 3.511</div>
+          <div class="dt-l">Distribution Test</div>
+        </div>
+        <div class="dt">
+          <div class="dt-title">Levene's Test</div>
+          <div class="dt-n">W = 0.001</div>
+          <div class="dt-l">Variance Comparison</div>
+        </div>
+      </div>
+
+      <div class="dash-footer">
+        <span class="dash-footer-txt">Real data · Cloud synced · PDF export enabled</span>
+        <a href="https://gsm-dashboard-crandall.web.app" target="_blank" class="dash-link">Open Live Dashboard →</a>
+      </div>
+    </div>
+
+    <div class="two-col rev">
+      <div class="card">
+        <div class="card-label">The Problem</div>
+        <h3>No statistical evidence for academic decisions</h3>
+        <p>Grade data existed across programs, courses, terms, and delivery modes — but in silos. Curriculum decisions were being made on assumption, not evidence. I was brought in to change that.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">The Solution</div>
+        <h3>A full-stack analytics platform, built from scratch</h3>
+        <p>Designed and deployed end-to-end — data architecture, statistical engine, interactive UI, cloud sync, and PDF export. Non-technical academic staff can run inferential hypothesis tests with one click.</p>
+      </div>
+    </div>
+
+    <div class="insight rev">
+      <div class="ins-lbl">Key Finding Delivered</div>
+      <div class="ins-title">Statistical equivalence confirmed across programs.</div>
+      <div class="ins-text">
+        ANOVA (p=0.1684) and Chi-Square (p=0.4762) testing confirmed no significant difference
+        in grade distributions between Master of Management and Organizational Management programs.
+        <strong>This validated grading consistency</strong> and enabled the institution to expand
+        program offerings without curriculum inequity risk — a governance decision made from data,
+        not assumption.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ② CASE STUDY 2 — COTIVITI ───────────────────── -->
+<section style="background:white">
+  <div class="wrap">
+    <div class="eyebrow rev">Case Study 02 — Enterprise Healthcare BI</div>
+    <h2 class="rev">Performance Intelligence for US Health Insurers</h2>
+
+    <p class="body-p rev"><strong>Role:</strong> Business Intelligence Analyst, Cotiviti India — serving Aetna and Humana</p>
+    <p class="body-p rev"><strong>Duration:</strong> July 2021 – November 2023 &nbsp;·&nbsp; Remote delivery for US enterprise clients</p>
+    <p class="body-p rev">Enterprise health insurance clients required consistent, compliant, and actionable analytics across complex datasets — in a regulated environment where data quality failures carry legal and financial consequences. I served as the primary BI analyst and delivery owner for over two years.</p>
+
+    <div class="three-col rev">
+      <div class="card">
+        <div class="card-label">SQL Data Pipelines</div>
+        <h3>Complex multi-table queries</h3>
+        <p>Healthcare claims and performance data extraction, transformation, and delivery — built to compliance standards and client-defined refresh SLAs.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Tableau Dashboards</div>
+        <h3>Performance monitoring</h3>
+        <p>Interactive KPI dashboards for healthcare performance monitoring, trend analysis, and variance reporting — consumed by US executive stakeholders.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">SPSS Modelling</div>
+        <h3>Statistical risk analysis</h3>
+        <p>Advanced statistical modelling for risk segmentation and outcome analysis — maintained to data governance and security compliance standards throughout.</p>
+      </div>
+    </div>
+
+    <div class="insight rev">
+      <div class="ins-lbl">What Regulated BI Delivery Teaches You</div>
+      <div class="ins-title">Data governance is not a checklist. It is the product.</div>
+      <div class="ins-text">
+        When BI outputs are consumed by compliance teams at Fortune 500 health insurers,
+        <strong>data quality is not optional</strong> — it is the entire value proposition.
+        Two years in this environment produced a BI professional who validates before releasing,
+        documents before deploying, and treats governance as a feature rather than an obstacle.
+        That standard transfers directly to government data platforms.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ BOTTOM — TOOLS + CTA ──────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow rev">Technical Stack</div>
+    <h2 class="rev">The tools behind the work.</h2>
+
+    <div class="two-col rev">
+      <div class="card">
+        <div class="card-label">Analytics &amp; BI</div>
+        <h3>SQL · Tableau · Excel (Advanced) · SPSS</h3>
+        <p>End-to-end analytical capability — from raw data extraction through to governed, stakeholder-ready output. Applied across healthcare, academic, and manufacturing datasets.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Statistical Methods</div>
+        <h3>ANOVA · Chi-Square · Levene's · Descriptive Statistics</h3>
+        <p>Inferential hypothesis testing applied to real institutional data. Not theoretical — automated and deployed in a live system used for governance decisions.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Data Governance</div>
+        <h3>Compliance · Security · Quality Monitoring</h3>
+        <p>Data governance standards maintained across sensitive healthcare datasets and public-sector academic records. Built into the process, not added at the end.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Delivery Tools</div>
+        <h3>JIRA · Tableau · Cloud Deployment · PDF Reporting</h3>
+        <p>BI delivery tracked in JIRA, dashboards deployed to cloud infrastructure, and outputs formatted for non-technical decision-makers with one-click PDF export.</p>
+      </div>
+    </div>
+
+    <div class="cta rev">
+      <div>
+        <div class="cta-t">Data governance. Live systems. Ready for SNB.</div>
+        <div class="cta-s">Available immediately · Moncton, NB · PGWP Authorized</div>
+      </div>
+      <a href="mailto:ashish.moncton@gmail.com" class="btn-w">Get in Touch →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="index.html" style="color:var(--teal);text-decoration:none;font-family:var(--mono);font-size:.62rem">← Back to Portfolio</a></p>
+  <p>© 2026 Ashish Deshmukh · Moncton, NB</p>
+</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 60);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.rev').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
